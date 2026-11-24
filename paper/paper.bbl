@@ -1,0 +1,327 @@
+\begin{thebibliography}{38}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Ahia et~al.(2023)Ahia, Kumar, Gonen, Kasai, Mortensen, Smith, and
+  Tsvetkov}]{ahia2023cost}
+Orevaoghene Ahia, Sachin Kumar, Hila Gonen, Jungo Kasai, David Mortensen, Noah
+  Smith, and Yulia Tsvetkov. 2023.
+\newblock Do all languages cost the same? tokenization in the era of commercial
+  language models.
+\newblock In \emph{Proceedings of the 2023 Conference on Empirical Methods in
+  Natural Language Processing}, pages 9904--9923, Singapore. Association for
+  Computational Linguistics.
+
+\bibitem[{Artetxe et~al.(2020)Artetxe, Ruder, and Yogatama}]{artetxe2020cross}
+Mikel Artetxe, Sebastian Ruder, and Dani Yogatama. 2020.
+\newblock On the cross-lingual transferability of monolingual representations.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association
+  for Computational Linguistics}, pages 4623--4637, Online. Association for
+  Computational Linguistics.
+
+\bibitem[{Bandarkar and Peng(2025)}]{bandarkar2025merging}
+Lucas Bandarkar and Nanyun Peng. 2025.
+\newblock The unreasonable effectiveness of model merging for cross-lingual
+  transfer in {LLM}s.
+\newblock In \emph{Proceedings of the 5th Workshop on Multilingual
+  Representation Learning (MRL 2025)}, pages 131--148, Suzhou, China.
+  Association for Computational Linguistics.
+
+\bibitem[{Barbieri et~al.(2020)Barbieri, Camacho-Collados, Espinosa~Anke, and
+  Neves}]{barbieri2020tweeteval}
+Francesco Barbieri, Jose Camacho-Collados, Luis Espinosa~Anke, and Leonardo
+  Neves. 2020.
+\newblock {T}weet{E}val: Unified benchmark and comparative evaluation for tweet
+  classification.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2020}, pages 1644--1650, Online. Association for Computational
+  Linguistics.
+
+\bibitem[{Barbieri et~al.(2022)Barbieri, Espinosa~Anke, and
+  Camacho-Collados}]{barbieri2022xlmt}
+Francesco Barbieri, Luis Espinosa~Anke, and Jose Camacho-Collados. 2022.
+\newblock {XLM}-{T}: Multilingual language models in {T}witter for sentiment
+  analysis and beyond.
+\newblock In \emph{Proceedings of the Thirteenth Language Resources and
+  Evaluation Conference}, pages 258--266, Marseille, France. European Language
+  Resources Association.
+
+\bibitem[{Blevins and Zettlemoyer(2022)}]{blevins2022contamination}
+Terra Blevins and Luke Zettlemoyer. 2022.
+\newblock Language contamination helps explains the cross-lingual capabilities
+  of {E}nglish pretrained models.
+\newblock In \emph{Proceedings of the 2022 Conference on Empirical Methods in
+  Natural Language Processing}, pages 3563--3574, Abu Dhabi, United Arab
+  Emirates. Association for Computational Linguistics.
+
+\bibitem[{Chirkova and Nikoulina(2024)}]{chirkova2024zeroshot}
+Nadezhda Chirkova and Vassilina Nikoulina. 2024.
+\newblock Zero-shot cross-lingual transfer in instruction tuning of large
+  language models.
+\newblock In \emph{Proceedings of the 17th International Natural Language
+  Generation Conference}, pages 695--708, Tokyo, Japan. Association for
+  Computational Linguistics.
+
+\bibitem[{Conneau et~al.(2020)Conneau, Khandelwal, Goyal, Chaudhary, Wenzek,
+  Guzm{\'a}n, Grave, Ott, Zettlemoyer, and Stoyanov}]{conneau2020xlmr}
+Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume
+  Wenzek, Francisco Guzm{\'a}n, Edouard Grave, Myle Ott, Luke Zettlemoyer, and
+  Veselin Stoyanov. 2020.
+\newblock Unsupervised cross-lingual representation learning at scale.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association
+  for Computational Linguistics}, pages 8440--8451, Online. Association for
+  Computational Linguistics.
+
+\bibitem[{Dettmers et~al.(2023)Dettmers, Pagnoni, Holtzman, and
+  Zettlemoyer}]{dettmers2023qlora}
+Tim Dettmers, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer. 2023.
+\newblock {QL}o{RA}: Efficient finetuning of quantized {LLM}s.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~36.
+
+\bibitem[{Devlin et~al.(2019)Devlin, Chang, Lee, and
+  Toutanova}]{devlin2019bert}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019.
+\newblock {BERT}: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock In \emph{Proceedings of the 2019 Conference of the North {A}merican
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies, Volume 1 (Long and Short Papers)}, pages 4171--4186,
+  Minneapolis, Minnesota. Association for Computational Linguistics.
+
+\bibitem[{Downey et~al.(2023)Downey, Blevins, Goldfine, and
+  Steinert-Threlkeld}]{downey2023embedding}
+C.M. Downey, Terra Blevins, Nora Goldfine, and Shane Steinert-Threlkeld. 2023.
+\newblock Embedding structure matters: Comparing methods to adapt multilingual
+  vocabularies to new languages.
+\newblock In \emph{Proceedings of the 3rd Workshop on Multi-lingual
+  Representation Learning (MRL)}, pages 268--281, Singapore. Association for
+  Computational Linguistics.
+
+\bibitem[{Etxaniz et~al.(2024)Etxaniz, Azkune, Soroa, Lopez~de Lacalle, and
+  Artetxe}]{etxaniz2024think}
+Julen Etxaniz, Gorka Azkune, Aitor Soroa, Oier Lopez~de Lacalle, and Mikel
+  Artetxe. 2024.
+\newblock Do multilingual language models think better in {E}nglish?
+\newblock In \emph{Proceedings of the 2024 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies (Volume 2: Short Papers)}, pages 550--564, Mexico City, Mexico.
+  Association for Computational Linguistics.
+
+\bibitem[{{Gemini Team}(2025)}]{geminiteam2025gemini}
+{Gemini Team}. 2025.
+\newblock Gemini 2.5: Pushing the frontier with advanced reasoning,
+  multimodality, long context, and next generation agentic capabilities.
+\newblock \emph{arXiv preprint arXiv:2507.06261}.
+
+\bibitem[{Han et~al.(2023)Han, Han, and {Unsloth Team}}]{han2023unsloth}
+Daniel Han, Michael Han, and {Unsloth Team}. 2023.
+\newblock Unsloth: Accelerating large language model fine-tuning.
+\newblock GitHub repository, \url{https://github.com/unslothai/unsloth}.
+
+\bibitem[{Hu et~al.(2022)Hu, Shen, Wallis, Allen-Zhu, Li, Wang, Wang, and
+  Chen}]{hu2022lora}
+Edward~J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean
+  Wang, Lu~Wang, and Weizhu Chen. 2022.
+\newblock {LoRA}: Low-rank adaptation of large language models.
+\newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{Hu et~al.(2020)Hu, Ruder, Siddhant, Neubig, Firat, and
+  Johnson}]{hu2020xtreme}
+Junjie Hu, Sebastian Ruder, Aditya Siddhant, Graham Neubig, Orhan Firat, and
+  Melvin Johnson. 2020.
+\newblock {XTREME}: A massively multilingual multi-task benchmark for
+  evaluating cross-lingual generalisation.
+\newblock In \emph{Proceedings of the 37th International Conference on Machine
+  Learning}, volume 119 of \emph{Proceedings of Machine Learning Research},
+  pages 4411--4421.
+
+\bibitem[{Karthikeyan et~al.(2020)Karthikeyan, Wang, Mayhew, and
+  Roth}]{karthikeyan2020cross}
+K.~Karthikeyan, Zihan Wang, Stephen Mayhew, and Dan Roth. 2020.
+\newblock Cross-lingual ability of multilingual {BERT}: An empirical study.
+\newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{Kudo and Richardson(2018)}]{kudo2018sentencepiece}
+Taku Kudo and John Richardson. 2018.
+\newblock {S}entence{P}iece: A simple and language independent subword
+  tokenizer and detokenizer for neural text processing.
+\newblock In \emph{Proceedings of the 2018 Conference on Empirical Methods in
+  Natural Language Processing: System Demonstrations}, pages 66--71, Brussels,
+  Belgium. Association for Computational Linguistics.
+
+\bibitem[{Limisiewicz et~al.(2023)Limisiewicz, Balhar, and
+  Mare{\v{c}}ek}]{limisiewicz2023tokenization}
+Tomasz Limisiewicz, Ji{\v{r}}{\'i} Balhar, and David Mare{\v{c}}ek. 2023.
+\newblock Tokenization impacts multilingual language modeling: Assessing
+  vocabulary allocation and overlap across languages.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  ACL 2023}, pages 5661--5681, Toronto, Canada. Association for Computational
+  Linguistics.
+
+\bibitem[{Lin et~al.(2022)Lin, Mihaylov, Artetxe, Wang, Chen, Simig, Ott,
+  Goyal, Bhosale, Du, Pasunuru, Shleifer, Koura, Chaudhary, O{'}Horo, Wang,
+  Zettlemoyer, Kozareva, Diab, Stoyanov, and Li}]{lin2022xglm}
+Xi~Victoria Lin, Todor Mihaylov, Mikel Artetxe, Tianlu Wang, Shuohui Chen,
+  Daniel Simig, Myle Ott, Naman Goyal, Shruti Bhosale, Jingfei Du, Ramakanth
+  Pasunuru, Sam Shleifer, Punit~Singh Koura, Vishrav Chaudhary, Brian O{'}Horo,
+  Jeff Wang, Luke Zettlemoyer, Zornitsa Kozareva, Mona Diab, and 2 others.
+  2022.
+\newblock Few-shot learning with multilingual generative language models.
+\newblock In \emph{Proceedings of the 2022 Conference on Empirical Methods in
+  Natural Language Processing}, pages 9019--9052, Abu Dhabi, United Arab
+  Emirates. Association for Computational Linguistics.
+
+\bibitem[{{Llama Team, AI @ Meta}(2024)}]{meta2024llama3}
+{Llama Team, AI @ Meta}. 2024.
+\newblock The {Llama} 3 herd of models.
+\newblock \emph{arXiv preprint arXiv:2407.21783}.
+
+\bibitem[{Ma et~al.(2025)Ma, Liu, Ye, and Schuetze}]{ma2025transliteration}
+Chunlan Ma, Yihong Liu, Haotian Ye, and Hinrich Schuetze. 2025.
+\newblock Exploring the role of transliteration in in-context learning for
+  low-resource languages written in non-{L}atin scripts.
+\newblock In \emph{Proceedings of the 5th Workshop on Multilingual
+  Representation Learning (MRL 2025)}, pages 397--410, Suzhou, China.
+  Association for Computational Linguistics.
+
+\bibitem[{Muennighoff et~al.(2023)Muennighoff, Wang, Sutawika, Roberts,
+  Biderman, Le~Scao, Bari, Shen, Yong, Schoelkopf, Tang, Radev, Aji, Almubarak,
+  Albanie, Alyafeai, Webson, Raff, and Raffel}]{muennighoff2023crosslingual}
+Niklas Muennighoff, Thomas Wang, Lintang Sutawika, Adam Roberts, Stella
+  Biderman, Teven Le~Scao, M~Saiful Bari, Sheng Shen, Zheng~Xin Yong, Hailey
+  Schoelkopf, Xiangru Tang, Dragomir Radev, Alham~Fikri Aji, Khalid Almubarak,
+  Samuel Albanie, Zaid Alyafeai, Albert Webson, Edward Raff, and Colin Raffel.
+  2023.
+\newblock Crosslingual generalization through multitask finetuning.
+\newblock In \emph{Proceedings of the 61st Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 15991--16111,
+  Toronto, Canada. Association for Computational Linguistics.
+
+\bibitem[{{OpenAI}(2025)}]{openai2025gptoss}
+{OpenAI}. 2025.
+\newblock \href {https://arxiv.org/abs/2508.10925} {gpt-oss-120b \& gpt-oss-20b
+  model card}.
+\newblock \emph{Preprint}, arXiv:2508.10925.
+
+\bibitem[{Patwa et~al.(2020)Patwa, Aguilar, Kar, Pandey, PYKL, Gamb{\"a}ck,
+  Chakraborty, Solorio, and Das}]{patwa2020semeval}
+Parth Patwa, Gustavo Aguilar, Sudipta Kar, Suraj Pandey, Srinivas PYKL,
+  Bj{\"o}rn Gamb{\"a}ck, Tanmoy Chakraborty, Thamar Solorio, and Amitava Das.
+  2020.
+\newblock {S}em{E}val-2020 task 9: Overview of sentiment analysis of code-mixed
+  tweets.
+\newblock In \emph{Proceedings of the Fourteenth Workshop on Semantic
+  Evaluation}, pages 774--790, Barcelona (online). International Committee for
+  Computational Linguistics.
+
+\bibitem[{Petrov et~al.(2023)Petrov, La~Malfa, Torr, and
+  Bibi}]{petrov2023tokenizers}
+Aleksandar Petrov, Emanuele La~Malfa, Philip Torr, and Adel Bibi. 2023.
+\newblock Language model tokenizers introduce unfairness between languages.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~36.
+
+\bibitem[{Pfeiffer et~al.(2020)Pfeiffer, Vuli{\'c}, Gurevych, and
+  Ruder}]{pfeiffer2020madx}
+Jonas Pfeiffer, Ivan Vuli{\'c}, Iryna Gurevych, and Sebastian Ruder. 2020.
+\newblock {MAD-X}: {A}n {A}dapter-{B}ased {F}ramework for {M}ulti-{T}ask
+  {C}ross-{L}ingual {T}ransfer.
+\newblock In \emph{Proceedings of the 2020 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 7654--7673, Online. Association
+  for Computational Linguistics.
+
+\bibitem[{Pires et~al.(2019)Pires, Schlinger, and
+  Garrette}]{pires2019multilingual}
+Telmo Pires, Eva Schlinger, and Dan Garrette. 2019.
+\newblock How multilingual is multilingual {BERT}?
+\newblock In \emph{Proceedings of the 57th Annual Meeting of the Association
+  for Computational Linguistics}, pages 4996--5001, Florence, Italy.
+  Association for Computational Linguistics.
+
+\bibitem[{Poelman et~al.(2025)Poelman, Bauwens, and
+  de~Lhoneux}]{poelman2025morphology}
+Wessel Poelman, Thomas Bauwens, and Miryam de~Lhoneux. 2025.
+\newblock How can we relate language modeling to morphology?
+\newblock In \emph{Proceedings of the 5th Workshop on Multilingual
+  Representation Learning (MRL 2025)}, pages 196--198, Suzhou, China.
+  Association for Computational Linguistics.
+
+\bibitem[{{Qwen Team}(2024{\natexlab{a}})}]{qwen2025modelcard}
+{Qwen Team}. 2024{\natexlab{a}}.
+\newblock {Qwen2.5-3B-Instruct} model card.
+\newblock Hugging Face model repository,
+  \url{https://huggingface.co/Qwen/Qwen2.5-3B-Instruct}.
+\newblock Accessed 2026-11-19.
+
+\bibitem[{{Qwen Team}(2024{\natexlab{b}})}]{qwenteam2024qwen25}
+{Qwen Team}. 2024{\natexlab{b}}.
+\newblock Qwen2.5 technical report.
+\newblock \emph{arXiv preprint arXiv:2412.15115}.
+
+\bibitem[{Rosenthal et~al.(2017)Rosenthal, Farra, and
+  Nakov}]{rosenthal2017semeval}
+Sara Rosenthal, Noura Farra, and Preslav Nakov. 2017.
+\newblock {S}em{E}val-2017 task 4: Sentiment analysis in {T}witter.
+\newblock In \emph{Proceedings of the 11th International Workshop on Semantic
+  Evaluation ({S}em{E}val-2017)}, pages 502--518, Vancouver, Canada.
+  Association for Computational Linguistics.
+
+\bibitem[{Rust et~al.(2021)Rust, Pfeiffer, Vuli{\'c}, Ruder, and
+  Gurevych}]{rust2021good}
+Phillip Rust, Jonas Pfeiffer, Ivan Vuli{\'c}, Sebastian Ruder, and Iryna
+  Gurevych. 2021.
+\newblock How good is your tokenizer? on the monolingual performance of
+  multilingual language models.
+\newblock In \emph{Proceedings of the 59th Annual Meeting of the Association
+  for Computational Linguistics and the 11th International Joint Conference on
+  Natural Language Processing (Volume 1: Long Papers)}, pages 3118--3135,
+  Online. Association for Computational Linguistics.
+
+\bibitem[{Sennrich et~al.(2016)Sennrich, Haddow, and Birch}]{sennrich2016bpe}
+Rico Sennrich, Barry Haddow, and Alexandra Birch. 2016.
+\newblock Neural machine translation of rare words with subword units.
+\newblock In \emph{Proceedings of the 54th Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 1715--1725,
+  Berlin, Germany. Association for Computational Linguistics.
+
+\bibitem[{Shaham et~al.(2024)Shaham, Herzig, Aharoni, Szpektor, Tsarfaty, and
+  Eyal}]{shaham2024pinch}
+Uri Shaham, Jonathan Herzig, Roee Aharoni, Idan Szpektor, Reut Tsarfaty, and
+  Matan Eyal. 2024.
+\newblock Multilingual instruction tuning with just a pinch of multilinguality.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  ACL 2024}, pages 2304--2317, Bangkok, Thailand. Association for Computational
+  Linguistics.
+
+\bibitem[{{\"U}st{\"u}n et~al.(2024){\"U}st{\"u}n, Aryabumi, Yong, Ko,
+  D{'}souza, Onilude, Bhandari, Singh, Ooi, Kayid, Vargus, Blunsom, Longpre,
+  Muennighoff, Fadaee, Kreutzer, and Hooker}]{ustun2024aya}
+Ahmet {\"U}st{\"u}n, Viraat Aryabumi, Zheng Yong, Wei-Yin Ko, Daniel D{'}souza,
+  Gbemileke Onilude, Neel Bhandari, Shivalika Singh, Hui-Lee Ooi, Amr Kayid,
+  Freddie Vargus, Phil Blunsom, Shayne Longpre, Niklas Muennighoff, Marzieh
+  Fadaee, Julia Kreutzer, and Sara Hooker. 2024.
+\newblock Aya model: An instruction finetuned open-access multilingual language
+  model.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 15894--15939,
+  Bangkok, Thailand. Association for Computational Linguistics.
+
+\bibitem[{Winata et~al.(2021)Winata, Madotto, Lin, Liu, Yosinski, and
+  Fung}]{winata2021fewshot}
+Genta~Indra Winata, Andrea Madotto, Zhaojiang Lin, Rosanne Liu, Jason Yosinski,
+  and Pascale Fung. 2021.
+\newblock Language models are few-shot multilingual learners.
+\newblock In \emph{Proceedings of the 1st Workshop on Multilingual
+  Representation Learning}, pages 1--15, Punta Cana, Dominican Republic.
+  Association for Computational Linguistics.
+
+\bibitem[{Wu and Dredze(2019)}]{wu2019beto}
+Shijie Wu and Mark Dredze. 2019.
+\newblock Beto, bentz, becas: The surprising cross-lingual effectiveness of
+  {BERT}.
+\newblock In \emph{Proceedings of the 2019 Conference on Empirical Methods in
+  Natural Language Processing and the 9th International Joint Conference on
+  Natural Language Processing (EMNLP-IJCNLP)}, pages 833--844, Hong Kong,
+  China. Association for Computational Linguistics.
+
+\end{thebibliography}

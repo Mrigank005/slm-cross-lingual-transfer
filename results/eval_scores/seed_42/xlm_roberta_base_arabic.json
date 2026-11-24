@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "model": "xlm_roberta_base",
+    "language": "arabic",
+    "saved_at": "2026-04-09T09:07:55.023770+00:00"
+  },
+  "accuracy": 0.6138,
+  "f1_macro": 0.6101,
+  "f1_macro_ci_lower": 0.5786,
+  "f1_macro_ci_upper": 0.6409,
+  "f1_weighted": 0.6101,
+  "per_class": {
+    "negative": {
+      "precision": 0.6606,
+      "recall": 0.6241,
+      "f1": 0.6418,
+      "support": 290
+    },
+    "neutral": {
+      "precision": 0.5755,
+      "recall": 0.4862,
+      "f1": 0.5271,
+      "support": 290
+    },
+    "positive": {
+      "precision": 0.604,
+      "recall": 0.731,
+      "f1": 0.6615,
+      "support": 290
+    }
+  },
+  "avg_latency_seconds": 0.0029,
+  "total_latency_seconds": 2.523,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "parse_failure_flagged": false,
+  "n_samples": 870
+}

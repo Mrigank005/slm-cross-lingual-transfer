@@ -1,0 +1,7 @@
+{
+  "model": "qwen25_finetuned",
+  "language": "arabic",
+  "total_failures": 0,
+  "saved_at": "2026-04-09T09:07:05.342833+00:00",
+  "failures": []
+}

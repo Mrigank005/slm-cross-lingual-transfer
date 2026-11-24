@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this code, predictions or annotations, please cite the paper below."
+title: "Two Failure Profiles in Zero-Shot Cross-Lingual Transfer of a Small Language Model"
+authors:
+  - family-names: Singh
+    given-names: Mrigank
+    affiliation: UPES Dehradun
+repository-code: "https://github.com/Mrigank005/slm-cross-lingual-transfer"
+license: MIT
+preferred-citation:
+  type: conference-paper
+  title: "Two Failure Profiles in Zero-Shot Cross-Lingual Transfer of a Small Language Model"
+  authors:
+    - family-names: Singh
+      given-names: Mrigank
+      affiliation: UPES Dehradun
+  collection-title: "Proceedings of the 2nd Workshop on Benchmarks, Harmonization, Annotation, and Standardization for Human-Centric AI in Indian Languages (BHASHA 2026)"
+  conference:
+    name: "BHASHA 2026, co-located with ICON 2026"
+  year: 2026

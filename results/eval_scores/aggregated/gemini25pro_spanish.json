@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "model": "gemini25pro",
+    "language": "spanish",
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "n_samples": 870,
+    "saved_at": "2026-11-24T18:47:03.510630+00:00"
+  },
+  "f1_macro_mean": 0.7313,
+  "f1_macro_std": 0.0,
+  "f1_macro_per_seed": {
+    "42": 0.7313,
+    "123": 0.7313,
+    "456": 0.7313
+  },
+  "f1_macro_ci_lower": 0.7032,
+  "f1_macro_ci_upper": 0.76,
+  "accuracy_mean": 0.7322,
+  "accuracy_std": 0.0,
+  "avg_latency_seconds_mean": 2.7519,
+  "avg_latency_seconds_std": 0.0,
+  "per_class": {
+    "negative": {
+      "f1_mean": 0.7762,
+      "f1_std": 0.0
+    },
+    "neutral": {
+      "f1_mean": 0.6351,
+      "f1_std": 0.0
+    },
+    "positive": {
+      "f1_mean": 0.7826,
+      "f1_std": 0.0
+    }
+  }
+}

@@ -1,0 +1,83 @@
+# Training Configuration — Qwen2.5-3B-Instruct QLoRA Fine-tuning
+
+model:
+  name: "unsloth/Qwen2.5-3B-Instruct"
+  max_seq_length: 512       # tweets are short; verify via notebook 01 token length analysis
+  load_in_4bit: true
+  dtype: null               # auto-detect: float16 on T4, bfloat16 on A100+
+
+lora:
+  r: 16
+  lora_alpha: 16
+  target_modules: ["q_proj", "v_proj"]
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+training:
+  seeds: [42, 123, 456]      # multi-seed experiment
+  num_train_epochs: 10
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4    # effective batch size = 16
+  learning_rate: 2.0e-4
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  fp16: true
+  logging_steps: 10
+  evaluation_strategy: "epoch"
+  save_strategy: "epoch"
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+  save_total_limit: 3
+  seed: 42
+  report_to: "wandb"
+  early_stopping_patience: 2
+
+checkpointing:
+  drive_path: "/content/drive/MyDrive/qwen-sentiment/"
+  drive_path_template: "/content/drive/MyDrive/qwen-sentiment/seed_{seed}/"
+
+hub:
+  repo_template: "Mrigank005/SLM-sentiment-crosslingual-seed-{seed}"
+
+xlmr:
+  model_name: "xlm-roberta-base"
+  num_labels: 3
+  max_seq_length: 128
+  learning_rate: 2.0e-5
+  num_train_epochs: 10
+  per_device_train_batch_size: 32
+  gradient_accumulation_steps: 1
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  evaluation_strategy: "epoch"
+  save_strategy: "epoch"
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  early_stopping_patience: 2
+  seed: 42
+
+wandb:
+  project: "qwen-sentiment-crosslingual"
+  entity: null                      # set to your W&B username
+
+evaluation:
+  subsample_n: 200                  # stratified samples per language
+  subsample_seed: 42
+  languages: ["english", "hindi", "arabic", "spanish"]
+  bootstrap_n_resamples: 1000
+  bootstrap_ci: 0.95
+  parse_failure_threshold: 0.05     # warn if > 5% parse failures
+
+api:
+  groq:
+    model: "llama-3.3-70b-versatile"
+    daily_token_budget: 95000       # safe margin below 100K TPD
+    cooldown_seconds: 60
+    max_retries: 5
+  gemini:
+    model: "gemini-2.5-pro"
+    cooldown_seconds: 60
+    max_retries: 5

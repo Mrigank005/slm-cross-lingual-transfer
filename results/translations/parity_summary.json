@@ -1,0 +1,69 @@
+{
+  "tokenizer": "unsloth/Qwen2.5-3B-Instruct",
+  "cleaning": "hashtags, @mentions, URLs, punctuation, emoji removed",
+  "languages": {
+    "english": {
+      "tokens_per_word": 1.152,
+      "parity": 1.0
+    },
+    "spanish": {
+      "n_items": 870,
+      "n_translated": 870,
+      "translation_model": "openai/gpt-oss-120b",
+      "parity": 1.224,
+      "parity_ci95": [
+        1.212,
+        1.238
+      ],
+      "parity_median_item": 1.211,
+      "tokens_per_word": 1.422,
+      "tokens_per_word_of_translation": 1.071,
+      "word_ratio_src_over_en": 0.922
+    },
+    "hindi": {
+      "n_items": 866,
+      "n_translated": 870,
+      "translation_model": "openai/gpt-oss-120b",
+      "parity": 1.26,
+      "parity_ci95": [
+        1.238,
+        1.283
+      ],
+      "parity_median_item": 1.25,
+      "tokens_per_word": 1.488,
+      "tokens_per_word_of_translation": 1.157,
+      "word_ratio_src_over_en": 0.98
+    },
+    "arabic": {
+      "n_items": 870,
+      "n_translated": 870,
+      "translation_model": "openai/gpt-oss-120b",
+      "parity": 1.411,
+      "parity_ci95": [
+        1.392,
+        1.43
+      ],
+      "parity_median_item": 1.4,
+      "tokens_per_word": 2.222,
+      "tokens_per_word_of_translation": 1.118,
+      "word_ratio_src_over_en": 0.71
+    }
+  },
+  "validation_on_annotated_items": {
+    "spanish": {
+      "n": 10,
+      "parity_human_translation": 1.111,
+      "parity_machine_translation": 1.209
+    },
+    "hindi": {
+      "n": 10,
+      "parity_human_translation": 1.33,
+      "parity_machine_translation": 1.357
+    },
+    "arabic": {
+      "n": 10,
+      "parity_human_translation": 1.236,
+      "parity_machine_translation": 1.301
+    }
+  }
+}

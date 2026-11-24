@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "model": "gemini25pro",
+    "language": "arabic",
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "n_samples": 870,
+    "saved_at": "2026-11-24T18:47:03.523242+00:00"
+  },
+  "f1_macro_mean": 0.7015,
+  "f1_macro_std": 0.0,
+  "f1_macro_per_seed": {
+    "42": 0.7015,
+    "123": 0.7015,
+    "456": 0.7015
+  },
+  "f1_macro_ci_lower": 0.6723,
+  "f1_macro_ci_upper": 0.7322,
+  "accuracy_mean": 0.6977,
+  "accuracy_std": 0.0,
+  "avg_latency_seconds_mean": 2.7439,
+  "avg_latency_seconds_std": 0.0,
+  "per_class": {
+    "negative": {
+      "f1_mean": 0.7543,
+      "f1_std": 0.0
+    },
+    "neutral": {
+      "f1_mean": 0.6667,
+      "f1_std": 0.0
+    },
+    "positive": {
+      "f1_mean": 0.6837,
+      "f1_std": 0.0
+    }
+  }
+}

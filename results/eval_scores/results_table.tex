@@ -1,0 +1,17 @@
+\begin{table}[h]
+\centering
+\caption{Cross-lingual sentiment classification results (F1 Macro with 95\% bootstrap CI).}
+\label{tab:results}
+\begin{tabular}{lccccc}
+\toprule
+Model & English & Spanish & Hindi & Arabic & Avg Latency (s) \\
+\midrule
+Majority Baseline & 0.1667 [0.1538, 0.1785] & 0.1667 [0.1538, 0.1785] & 0.1667 [0.1538, 0.1785] & 0.1667 [0.1538, 0.1785] & — \\
+Qwen2.5 3B (zero-shot) & 0.6752 [0.6443, 0.7068] & 0.6253 [0.5928, 0.6566] & 0.4851 [0.4503, 0.5205] & 0.4880 [0.453, 0.5234] & 0.057 \\
+Qwen2.5 3B QLoRA (ours) & \textbf{0.7244} ± 0.0071 & \textbf{0.6759} ± 0.0169 & \textbf{0.5652} ± 0.0027 & \textbf{0.5456} ± 0.0177 & 0.058 \\
+Llama 3.3 70B (zero-shot) & 0.7137 [0.6832, 0.7411] & 0.6680 [0.6373, 0.6972] & 0.6484 [0.6172, 0.6809] & 0.7334 [0.7043, 0.7622] & 0.702 \\
+Gemini 2.5 Pro (zero-shot) & 0.6950 [0.6654, 0.7236] & 0.7313 [0.7032, 0.76] & 0.6798 [0.6485, 0.7123] & 0.7015 [0.6723, 0.7322] & 2.751 \\
+XLM-R-base (EN fine-tuned) & 0.6710 ± 0.0050 & 0.5750 ± 0.0446 & 0.5299 ± 0.0049 & 0.6147 ± 0.0192 & 0.003 \\
+\bottomrule
+\end{tabular}
+\end{table}

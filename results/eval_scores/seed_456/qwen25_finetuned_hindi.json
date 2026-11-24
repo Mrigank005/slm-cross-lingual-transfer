@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "model": "qwen25_finetuned",
+    "language": "hindi",
+    "saved_at": "2026-04-09T09:05:17.093236+00:00"
+  },
+  "accuracy": 0.5667,
+  "f1_macro": 0.562,
+  "f1_macro_ci_lower": 0.527,
+  "f1_macro_ci_upper": 0.5961,
+  "f1_weighted": 0.562,
+  "per_class": {
+    "negative": {
+      "precision": 0.7134,
+      "recall": 0.3862,
+      "f1": 0.5011,
+      "support": 290
+    },
+    "neutral": {
+      "precision": 0.454,
+      "recall": 0.8,
+      "f1": 0.5793,
+      "support": 290
+    },
+    "positive": {
+      "precision": 0.7376,
+      "recall": 0.5138,
+      "f1": 0.6057,
+      "support": 290
+    }
+  },
+  "avg_latency_seconds": 0.0573,
+  "total_latency_seconds": 49.851,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "parse_failure_flagged": false,
+  "n_samples": 870
+}

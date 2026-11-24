@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "model": "qwen25_finetuned",
+    "language": "english",
+    "saved_at": "2026-11-24T18:33:26.482694+00:00"
+  },
+  "accuracy": 0.7264,
+  "f1_macro": 0.7206,
+  "f1_macro_ci_lower": 0.6903,
+  "f1_macro_ci_upper": 0.749,
+  "f1_weighted": 0.7206,
+  "per_class": {
+    "negative": {
+      "precision": 0.6789,
+      "recall": 0.8966,
+      "f1": 0.7727,
+      "support": 290
+    },
+    "neutral": {
+      "precision": 0.6537,
+      "recall": 0.5207,
+      "f1": 0.5797,
+      "support": 290
+    },
+    "positive": {
+      "precision": 0.8633,
+      "recall": 0.7621,
+      "f1": 0.8095,
+      "support": 290
+    }
+  },
+  "avg_latency_seconds": 0.0539,
+  "total_latency_seconds": 46.857,
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "parse_failure_flagged": false,
+  "n_samples": 870
+}

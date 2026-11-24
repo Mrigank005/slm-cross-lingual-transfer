@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "model": "majority_baseline",
+    "language": "hindi",
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "n_samples": 870,
+    "saved_at": "2026-11-24T18:47:03.210030+00:00"
+  },
+  "f1_macro_mean": 0.1667,
+  "f1_macro_std": 0.0,
+  "f1_macro_per_seed": {
+    "42": 0.1667,
+    "123": 0.1667,
+    "456": 0.1667
+  },
+  "f1_macro_ci_lower": 0.1538,
+  "f1_macro_ci_upper": 0.1785,
+  "accuracy_mean": 0.3333,
+  "accuracy_std": 0.0,
+  "avg_latency_seconds_mean": null,
+  "avg_latency_seconds_std": null,
+  "per_class": {
+    "negative": {
+      "f1_mean": 0.5,
+      "f1_std": 0.0
+    },
+    "neutral": {
+      "f1_mean": 0.0,
+      "f1_std": 0.0
+    },
+    "positive": {
+      "f1_mean": 0.0,
+      "f1_std": 0.0
+    }
+  }
+}

@@ -1,0 +1,55 @@
+# Secrets
+.env
+
+# Virtual environments
+sentiment.venv/
+Sentiment.venv/
+.venv/
+venv/
+env/
+
+# Python cache and build
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE and editor
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Model checkpoints and large binaries
+*.bin
+*.safetensors
+*.pt
+*.pth
+checkpoints/
+
+# Experiment logging
+wandb/
+
+# Misc
+*.log
+.cache/
+
+# Private working files (not part of the published repository)
+_private/
+
+# LaTeX build artifacts
+*.aux
+*.blg
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk

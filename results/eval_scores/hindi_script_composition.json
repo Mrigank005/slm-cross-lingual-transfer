@@ -1,0 +1,16 @@
+{
+  "test": {
+    "devanagari": 0,
+    "roman": 870,
+    "total": 870,
+    "devanagari_pct": 0.0
+  },
+  "train": {
+    "devanagari": 1,
+    "roman": 1838,
+    "total": 1839,
+    "devanagari_pct": 0.1
+  },
+  "finding": "predominantly_romanized",
+  "paper_implication": "Token fertility of 1.703 reflects Latin-script tokenization. Discuss in paper as code-mixing characteristic of Hindi Twitter data."
+}
