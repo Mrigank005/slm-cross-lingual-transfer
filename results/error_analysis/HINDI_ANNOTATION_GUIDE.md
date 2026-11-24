@@ -4,8 +4,8 @@ File to fill in: `hindi_annotation_extension.csv` (opens in Excel; keep it UTF-8
 
 ## What these rows are
 
-- There are 40 Romanized Hindi test items that the English-tuned QLoRA model (seed 42) got wrong.
-- They were drawn at random (`random_state=2026`) from the seed-42 Hindi errors that are not already in `annotation_sample.csv`.
+- There are 40 Romanized Hindi test items sampled from misclassifications of the English-tuned QLoRA model. The columns `seeds_wrong_of_3`, `majority_pred` and `retained` record how the three released seeds classify each item; the paper uses the `retained` rows.
+- They were drawn at random (`random_state=2026`) from Hindi misclassifications not already in `annotation_sample.csv`.
 - The 10 Hindi items already annotated for the paper are excluded.
 - The sample's mix of error types roughly follows the full error set: mostly negative→neutral and positive→neutral, with a few others.
 
