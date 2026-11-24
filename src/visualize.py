@@ -271,7 +271,7 @@ def plot_f1_grouped_bar(
 ) -> None:
     """Grouped bar chart: x=language, bars=models, y=macro-F1 with seed-SD error bars.
 
-    Drawn at ACL single-column size; include with width=\columnwidth.
+    Drawn at ACL single-column size; include at full column width.
     """
     data = _load_results(results_dir)
     plot_models = [m for m in MODELS if m != "majority_baseline"]
@@ -327,11 +327,12 @@ def plot_confusion_matrices_grid(
     results_dir: str = "results/eval_scores/aggregated/",
     cache_dir: str = "results/api_cache/",
     save_path: str = "results/figures/confusion_matrices_grid.pdf",
-    figsize: tuple[float, float] = (6.3, 8.0),
+    figsize: tuple[float, float] = (3.3, 4.6),
+    font_scale: float = 0.62,
     dpi: int = 300,
     seeds: tuple[int, ...] = (42, 123, 456),
 ) -> None:
-    """6x4 grid of confusion matrices (rows=models, cols=languages), drawn at ACL text width.
+    """6x4 grid of confusion matrices (rows=models, cols=languages), drawn at ACL column width.
 
     For the seed-dependent models (Qwen QLoRA, XLM-R) each matrix is the mean over all
     seeds, matching how every other number in the paper is reported.
@@ -358,18 +359,21 @@ def plot_confusion_matrices_grid(
                 sns.heatmap(cm, annot=True, fmt=fmt, cmap="Blues", vmin=0, vmax=290,
                             xticklabels=short if i == len(MODELS) - 1 else False,
                             yticklabels=short if j == 0 else False,
-                            ax=ax, cbar=False, square=True, linewidths=0.4, linecolor="white",
-                            annot_kws={"fontsize": 7})
-                ax.tick_params(length=0, labelsize=6.5, pad=1.5)
+                            ax=ax, cbar=False, square=True, linewidths=0.3, linecolor="white",
+                            annot_kws={"fontsize": 7 * font_scale})
+                ax.tick_params(length=0, labelsize=6.5 * font_scale, pad=1)
                 if j == 0:
                     ax.set_yticklabels(short, rotation=0)
-                if i == 0:
-                    ax.set_title(lang.capitalize(), fontsize=9, fontweight="bold", pad=4)
-                if j == 0:
-                    ax.set_ylabel(SHORT_DISPLAY.get(model, model), fontsize=8, fontweight="bold", labelpad=4)
                 if i == len(MODELS) - 1:
-                    ax.set_xlabel("predicted", fontsize=7, labelpad=2)
-        fig.tight_layout(pad=0.3, h_pad=0.6, w_pad=0.4)
+                    ax.set_xticklabels(short, rotation=0)
+                if i == 0:
+                    ax.set_title(lang.capitalize(), fontsize=9 * font_scale, fontweight="bold", pad=2)
+                if j == 0:
+                    ax.set_ylabel(SHORT_DISPLAY.get(model, model), fontsize=8 * font_scale,
+                                  fontweight="bold", labelpad=2)
+                if i == len(MODELS) - 1:
+                    ax.set_xlabel("predicted", fontsize=7 * font_scale, labelpad=1)
+        fig.tight_layout(pad=0.2, h_pad=0.3, w_pad=0.2)
         Path(save_path).parent.mkdir(parents=True, exist_ok=True)
         fig.savefig(save_path, dpi=dpi, bbox_inches="tight", pad_inches=0.02)
         plt.close(fig)

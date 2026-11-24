@@ -820,20 +820,6 @@ either way.}
 \label{tab:models}
 \end{table}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\columnwidth]{figures/f1_grouped_bar.pdf}
-\caption{Macro-F1 across the five model configurations and four languages; the
-majority baseline (0.1667 everywhere) is omitted for legibility. Error bars are
-sample standard deviations over three seeds for QLoRA and \mbox{XLM-R}; the deterministic single-run
-configurations have none, and their sampling uncertainty is given as bootstrap
-CIs in Table~\ref{tab:main} instead. The two Qwen bars sit level with the frontier
-models on English and Spanish and fall well below them on Hindi and Arabic; the
-gap that English tuning closes is roughly constant across languages
-(\mbox{+0.049} to \mbox{+0.080}), while the gap to the frontier models is not.}
-\label{fig:bars}
-\end{figure}
-
 \begin{table}[H]
 \centering\small
 \setlength{\tabcolsep}{4pt}
@@ -876,6 +862,24 @@ QLoRA model. Gains concentrate in the polar classes; the neutral class is
 essentially unmoved in every language, including English.}
 \label{tab:delta}
 \end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{figures/f1_grouped_bar.pdf}
+\caption{Macro-F1 across the five model configurations and four languages; the
+majority baseline (0.1667 everywhere) is omitted for legibility. Error bars are
+sample standard deviations over three seeds for QLoRA and \mbox{XLM-R}; the deterministic single-run
+configurations have none, and their sampling uncertainty is given as bootstrap
+CIs in Table~\ref{tab:main} instead. The two Qwen bars sit level with the frontier
+models on English and Spanish and fall well below them on Hindi and Arabic; the
+gap that English tuning closes is roughly constant across languages
+(\mbox{+0.049} to \mbox{+0.080}), while the gap to the frontier models is not.}
+\label{fig:bars}
+\end{figure}
+
+
+
+
 
 \section{Prompt}
 \label{app:prompt}
@@ -922,12 +926,57 @@ Model & Seed & Epoch & Val.\ loss & F1 \\
  & 456 & 3 & 0.8007 & 0.656 \\
 \bottomrule
 \end{tabular}
-\caption{Selected checkpoints per seed. $^{\dagger}$English \emph{test} macro-F1;
-QLoRA validation F1 was not recorded.}
+\caption{Selected checkpoints per seed. $^{\dagger}$English \emph{test} macro-F1.}
 \label{tab:seeds}
 \end{table}
 
 
+
+\section{Error Taxonomy}
+\label{app:errors}
+
+Table~\ref{tab:errors} gives the full breakdown behind \S\ref{sec:qualitative}.
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+& & \multicolumn{2}{c}{Hindi} & \\
+\cmidrule(lr){3-4}
+Category & Spanish & round 1 & all & Arabic \\
+\midrule
+Tokenization artifact & 1 & 0 & 0  & 4 \\
+Ambiguous neutral     & 3 & 2 & 12 & 0 \\
+Cultural idiom        & 2 & 2 & 4  & 2 \\
+Context dependent     & 1 & 2 & 14 & 2 \\
+Code-switching        & 0 & 2 & 14 & 0 \\
+Sarcasm / irony       & 1 & 0 & 2  & 0 \\
+\midrule
+Total                 & 8 & 8 & 46 & 8 \\
+\bottomrule
+\end{tabular}
+\caption{Failure categories over the manually annotated QLoRA misclassifications
+that at least two of the three seeds make. For Hindi, ``round 1'' is the initial
+sample and ``all'' adds a second, larger random sample; code-switching here
+includes non-standard Romanized spellings and abbreviations.}
+\label{tab:errors}
+\end{table}
+
+\section{Annotated Error Examples}
+\label{app:examples}
+
+Table~\ref{tab:examples} shows representative items from the annotated sample of
+\S\ref{sec:qualitative}, with its category label and the Qwen2.5
+tokenization of one sentiment- or content-bearing word in context. Arabic is
+rendered right to left, so in the split column its first piece is the rightmost.
+In the Arabic rows the pieces fall inside the word stem (for example
+\emph{al-hud\=u'}, `calmness', is split into the article \emph{al-} and two
+pieces of the stem). In the Romanized Hindi rows the pieces are short Latin
+strings, several of which coincide with English subwords (\emph{bhot} `very'
+becomes \emph{b}\,|\,\emph{hot}). English words are also split (the Qwen2.5
+tokenizer gives \emph{calm}\,|\,\emph{ness} for `calmness' in the gloss), so the
+table illustrates what the pieces look like rather than how many there are.
 
 \section{Full Per-Class Results}
 \label{app:detail}
@@ -937,7 +986,7 @@ model--language cell. The body reports only the cells it argues from; this is th
 complete grid behind the class-level claims of \S\ref{sec:analysis}, including
 the count of 16 of 20 cells in which neutral is the weakest class.
 
-\begin{table}[H]
+\begin{table}[t]
 \centering\scriptsize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{0.85}
@@ -987,55 +1036,6 @@ Table~\ref{tab:main}.}
 \end{table}
 \renewcommand{\arraystretch}{1}
 
-\section{Error Taxonomy}
-\label{app:errors}
-
-Table~\ref{tab:errors} gives the full six-category breakdown behind the
-qualitative analysis of \S\ref{sec:qualitative}, including the categories not
-discussed there.
-
-\begin{table}[H]
-\centering\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lcccc@{}}
-\toprule
-& & \multicolumn{2}{c}{Hindi} & \\
-\cmidrule(lr){3-4}
-Category & Spanish & round 1 & all & Arabic \\
-\midrule
-Tokenization artifact & 1 & 0 & 0  & 4 \\
-Ambiguous neutral     & 3 & 2 & 12 & 0 \\
-Cultural idiom        & 2 & 2 & 4  & 2 \\
-Context dependent     & 1 & 2 & 14 & 2 \\
-Code-switching        & 0 & 2 & 14 & 0 \\
-Sarcasm / irony       & 1 & 0 & 2  & 0 \\
-\midrule
-Total                 & 8 & 8 & 46 & 8 \\
-\bottomrule
-\end{tabular}
-\caption{Failure categories over the manually annotated QLoRA misclassifications
-that at least two of the three seeds make. For Hindi, ``round 1'' is the initial
-sample and ``all'' adds a second, larger random sample; code-switching here
-includes non-standard Romanized spellings and abbreviations.}
-\label{tab:errors}
-\end{table}
-
-\section{Annotated Error Examples}
-\label{app:examples}
-
-Table~\ref{tab:examples} shows representative items from the annotated sample of
-\S\ref{sec:qualitative}, with its category label and the Qwen2.5
-tokenization of one sentiment- or content-bearing word in context. Arabic is
-rendered right to left, so in the split column its first piece is the rightmost.
-In the Arabic rows the pieces fall inside the word stem (for example
-\emph{al-hud\=u'}, `calmness', is split into the article \emph{al-} and two
-pieces of the stem). In the Romanized Hindi rows the pieces are short Latin
-strings, several of which coincide with English subwords (\emph{bhot} `very'
-becomes \emph{b}\,|\,\emph{hot}). English words are also split (the Qwen2.5
-tokenizer gives \emph{calm}\,|\,\emph{ness} for `calmness' in the gloss), so the
-table illustrates what the pieces look like rather than how many there are.
-
-
 \section{Label Probabilities and Target-Language Instructions}
 \label{app:c1c2}
 
@@ -1083,15 +1083,6 @@ Hindi, 0.572 and 0.539 (from 0.485).}
 \section{Fragmentation Measures}
 \label{app:parity}
 
-Table~\ref{tab:parity} compares the two fragmentation measures. Tokens per word is
-the more common measure, computed here on the raw test text; parity is computed on cleaned text against machine translations
-(\S\ref{sec:setup}). The word ratio shows why tokens per word overstates Arabic:
-Arabic tweets have far fewer whitespace-separated words than their English
-translations. The validation columns use the 10 items per language of the first
-annotation round, which have human translations (\S\ref{sec:qualitative}). Four Hindi items contain nothing
-but hashtags, mentions or links, are empty after cleaning, and are excluded
-(Hindi $n{=}866$).
-
 \begin{table}[H]
 \centering\small
 \setlength{\tabcolsep}{3pt}
@@ -1117,20 +1108,19 @@ full machine-translated set does not.}
 \label{tab:parity}
 \end{table}
 
+
+Table~\ref{tab:parity} compares the two fragmentation measures. Tokens per word is
+the more common measure, computed here on the raw test text; parity is computed on cleaned text against machine translations
+(\S\ref{sec:setup}). The word ratio shows why tokens per word overstates Arabic:
+Arabic tweets have far fewer whitespace-separated words than their English
+translations. The validation columns use the 10 items per language of the first
+annotation round, which have human translations (\S\ref{sec:qualitative}). Four Hindi items contain nothing
+but hashtags, mentions or links, are empty after cleaning, and are excluded
+(Hindi $n{=}866$).
+
 \section{Confusion Matrices}
 \label{app:confusion}
 
-\begin{figure*}[!t]
-\centering
-\includegraphics[width=\textwidth]{figures/confusion_matrices_grid.pdf}
-\caption{Confusion matrices for all 24 model--language combinations, 870 test
-examples each; rows are configurations, columns are languages. Cells are counts,
-and for the two seed-dependent models (QLoRA, \mbox{XLM-R}) they are means over seeds
-42/123/456~--- hence the decimals~--- so that every rate quoted in
-Tables~\ref{tab:neutral} and \ref{tab:collapse} can be read directly off this
-figure.}
-\label{fig:confusion}
-\end{figure*}
 
 \noindent Figure~\ref{fig:confusion} is the raw evidence behind the prediction
 rates in Tables~\ref{tab:neutral} and \ref{tab:collapse}; three of its cells carry the
@@ -1145,5 +1135,17 @@ polar columns instead. Llama 3.3 70B on Arabic is diagonal-dominant throughout
 (76.9\%, 74.1\%, 68.3\%)~--- what the absence of a collapse looks like at this scale.
 
 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{figures/confusion_matrices_grid.pdf}
+\caption{Confusion matrices for all 24 model--language combinations, 870 test
+examples each; rows are configurations, columns are languages. Cells are counts,
+and for the two seed-dependent models (QLoRA, \mbox{XLM-R}) they are means over seeds
+42/123/456~--- hence the decimals~--- so that every rate quoted in
+Tables~\ref{tab:neutral} and \ref{tab:collapse} can be read directly off this
+figure.}
+\label{fig:confusion}
+\end{figure}
 
 \end{document}

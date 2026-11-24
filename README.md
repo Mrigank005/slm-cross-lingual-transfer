@@ -88,7 +88,7 @@ pip install -r requirements-local.txt
 | Macro-F1, per-class F1, neutral shares; Figures 1–2 | `notebooks/04_evaluation.ipynb`, section 2 (runs locally from the caches: seed aggregation, tables, figures) |
 | Label probabilities and target-language instructions (§5.1, Appendix G) | `python -m src.label_prob_analysis` |
 | Tokenizer parity (Appendix H) | `python -m src.parity` (translations: `python -m src.translate_parity`, needs a Groq key) |
-| Error taxonomy (§5.7, Appendix E) | `results/error_analysis/annotation_sample.csv`, `hindi_annotation_extension.csv` (rows with `retained = True`) |
+| Error taxonomy (§5.7, Appendix D) | `results/error_analysis/annotation_sample.csv`, `hindi_annotation_extension.csv` (rows with `retained = True`) |
 
 Re-running inference: notebooks `02`/`03` train the models, `04` evaluates all configurations (local models on a
 Colab T4; Llama and Gemini through their APIs, keys in `.env`), and `06` records label probabilities and runs the
