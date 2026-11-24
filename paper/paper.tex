@@ -34,6 +34,11 @@
   pdfkeywords={}
 }
 
+\Urlmuskip=0mu plus 1mu
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\do\-\do\.}
+\makeatother
+
 \title{Two Failure Profiles in Zero-Shot Cross-Lingual Transfer\\
 of a Small Language Model}
 
@@ -56,15 +61,15 @@ cost-constrained deployment, but supervised data for adapting them is usually
 available only in English. We ask what happens to the other languages when a 3B
 decoder is fine-tuned on English alone. Fine-tuning Qwen2.5-3B on English tweet
 sentiment via QLoRA, we evaluate zero-shot transfer to Spanish, Romanized Hindi,
-and Arabic against five reference points, including a fully fine-tuned XLM-R
+and Arabic against five reference points, including a fully fine-tuned \mbox{XLM-R}
 encoder and two frontier zero-shot models. English-only supervision produces
 positive transfer in every target language (\mbox{+0.049} to \mbox{+0.080}
 macro-F1 over the untuned base), and on English the 3B model matches or beats both
 frontier baselines at 0.058\,s per sample with no API cost. Transfer is not
 uniform, however. Using predicted-class rates on balanced test sets as a
 diagnostic, we show that English tuning \emph{recalibrates} the model where
-transfer succeeds -- neutral predictions move from 44\% to 32\% on English and
-29\% on Spanish, against a 33\% chance rate -- but leaves it collapsed onto the
+transfer succeeds~--- neutral predictions move from 44\% to 32\% on English and
+29\% on Spanish, against a 33\% chance rate~--- but leaves it collapsed onto the
 neutral class where transfer fails, at 55\% on Hindi and 69\% on Arabic. These two
 collapses do not share a single cause. Label probabilities show that on Arabic the
 model still separates the classes almost as well as on Spanish: balancing its
@@ -73,7 +78,7 @@ macro-F1 (0.546 to 0.669 and 0.665). On Romanized Hindi, which the tokenizer
 fragments only slightly more than Spanish, class separation itself is weaker,
 neither intervention helps much, and the errors are more consistent with a
 code-mixed register. A 70B decoder shows neither collapse. The advantage of the
-multilingual XLM-R encoder is likewise narrow: XLM-R wins only Arabic, and loses Spanish by 0.101 macro-F1
+multilingual \mbox{XLM-R} encoder is likewise narrow: \mbox{XLM-R} wins only Arabic, and loses Spanish by 0.101 macro-F1
 through the mirror-image pathology of under-predicting neutral at 15\%. We
 characterize these as distinct, separately diagnosable failure modes rather than a
 single degradation curve.
@@ -96,8 +101,8 @@ deployed multilingually. For encoders this recipe is well characterized: transfe
 works, and it degrades predictably with typological and script distance
 \citep{pires2019multilingual,wu2019beto,karthikeyan2020cross,hu2020xtreme}. For
 small generative decoders it is not. Recent small decoders are pretrained on
-multilingual data --- Qwen2.5, which we study, officially supports over 29
-languages including Spanish and Arabic \citep{qwen2025modelcard} --- but their
+multilingual data~--- Qwen2.5, which we study, officially supports over 29
+languages including Spanish and Arabic \citep{qwen2025modelcard}~--- but their
 per-language pretraining mixture is not documented, they are not trained with a
 cross-lingual alignment objective, and their transfer behaviour is mediated by a
 subword vocabulary, a component known to allocate tokens very unevenly across
@@ -119,8 +124,8 @@ fails, not about topping a leaderboard.
 \item English-only QLoRA tuning yields positive transfer in all four languages,
   and on English the 3B model matches or beats both a 70B and a frontier API model
   while running self-hosted on a single T4 GPU.
-\item \textbf{Predicted-class rate on balanced data} --- a measurement requiring
-  no target-language labels --- separates two failures that macro-F1 conflates:
+\item \textbf{Predicted-class rate on balanced data}~--- a measurement requiring
+  no target-language labels~--- separates two failures that macro-F1 conflates:
   English tuning recalibrates the model where transfer succeeds, and leaves it
   collapsed onto the neutral class where it does not.
 \item The collapse itself has \textbf{two failure profiles}. On Arabic, the most
@@ -128,12 +133,10 @@ fails, not about topping a leaderboard.
   balanced decision rule or an Arabic instruction recovers most of the gap; on
   Romanized Hindi, fragmented only slightly more than Spanish, class separation
   itself is weaker and neither intervention repairs it. Fragmentation explains
-  neither, and our error sample is consistent with code-mixed register driving the
-  Hindi case, which we treat as a hypothesis rather than an established cause.
-\item The encoder's advantage, meanwhile, is narrow rather than general: XLM-R
+  neither; our error sample suggests code-mixed register drives the Hindi case.
+\item The encoder's advantage, meanwhile, is narrow rather than general: \mbox{XLM-R}
   wins only Arabic, and on Spanish fails through the opposite pathology,
-  under-predicting neutral at 15\% against a 33\% chance rate --- though with
-  three seeds part of that Spanish gap is optimization noise.
+  under-predicting neutral at 15\% against a 33\% chance rate.
 \end{itemize}
 
 \section{Related Work}
@@ -205,7 +208,7 @@ in our study.
 Table~\ref{tab:models} (Appendix~\ref{app:supp}) lists the six configurations. Only English data is ever
 used for training. All four generative configurations receive byte-identical
 prompts (Appendix~\ref{app:prompt}), so decoder comparisons are not confounded by
-prompt engineering. XLM-R is the one architectural contrast we deliberately do not
+prompt engineering. \mbox{XLM-R} is the one architectural contrast we deliberately do not
 control: it is a masked-language-model encoder pretrained on 100 languages with
 lower-resource languages upsampled \citep{conneau2020xlmr}, whereas Qwen2.5 is a
 decoder whose multilingual pretraining mixture is not documented per language,
@@ -218,7 +221,7 @@ QLoRA \citep{dettmers2023qlora} adaptation of \texttt{Qwen2.5-3B-Instruct}
 \citep{qwenteam2024qwen25} targets \texttt{q\_proj} and \texttt{v\_proj}
 ($r{=}16$, $\alpha{=}16$, dropout 0.05) in 4-bit, with effective batch size 16,
 learning rate $2{\times}10^{-4}$, cosine schedule, and 0.1 warmup ratio
-\citep{han2023unsloth}. XLM-R-base \citep{conneau2020xlmr} is fully fine-tuned
+\citep{han2023unsloth}. \mbox{XLM-R}-base \citep{conneau2020xlmr} is fully fine-tuned
 with batch size 32 and learning rate $2{\times}10^{-5}$. Both use early stopping
 (patience 2) on validation loss, with the lowest-loss checkpoint retained, and
 both are trained under three seeds (42, 123, 456). All training fits a single
@@ -231,7 +234,7 @@ over three seeds with the sample standard deviation ($n{-}1$ denominator); for
 the deterministic
 single-run configurations we report 95\% bootstrap confidence intervals over
 1{,}000 resamples of the 870 test predictions. The two notations answer different
-questions -- seed variance versus sampling variance -- and we do not mix them.
+questions~--- seed variance versus sampling variance~--- and we do not mix them.
 Parse failures were zero for all four generative configurations in all four
 languages, so no predictions were discarded or substituted and every cell is
 scored over the full 870 examples.
@@ -246,14 +249,14 @@ temperature 0, and hashtags, mentions, URLs, punctuation and emoji were removed 
 both sides before counting. On 30 items that also have human translations, machine
 translation raises parity by 0.03 to 0.10, least for Hindi
 (Appendix~\ref{app:parity}), so small differences between languages should not be
-over-read. XLM-R, whose vocabulary is of a different type, is not analysed.
+over-read. \mbox{XLM-R}, whose vocabulary is of a different type, is not analysed.
 
 \paragraph{Availability.} Training and evaluation code, cached predictions for all
 24 model--language cells, the label-probability and target-language-instruction
 runs, the error annotations, and the machine translations used for parity are
 available at
 \url{https://github.com/Mrigank005/slm-cross-lingual-transfer}. The six fine-tuned
-checkpoints (three merged QLoRA models and three XLM-R models, one per seed) are on
+checkpoints (three merged QLoRA models and three \mbox{XLM-R} models, one per seed) are on
 the Hugging Face Hub under \url{https://huggingface.co/Mrigank005}. The Llama~3.3
 70B model we queried (\texttt{llama-3.3-70b-versatile}) has since been withdrawn by
 the API provider, so its released cached predictions are the only way to reproduce
@@ -275,11 +278,11 @@ Qwen2.5 3B (zero-shot)   & 0.6752 [0.644, 0.707] & 0.6253 [0.593, 0.657] & 0.485
 Qwen2.5 3B QLoRA (ours)  & \textbf{0.7244} $\pm$ 0.0071 & 0.6759 $\pm$ 0.0169 & 0.5652 $\pm$ 0.0027 & 0.5456 $\pm$ 0.0177 \\
 Llama 3.3 70B            & 0.7137 [0.683, 0.741] & 0.6680 [0.637, 0.697] & 0.6484 [0.617, 0.681] & \textbf{0.7334} [0.704, 0.762] \\
 Gemini 2.5 Pro           & 0.6950 [0.665, 0.724] & \textbf{0.7313} [0.703, 0.760] & \textbf{0.6798} [0.649, 0.712] & 0.7015 [0.672, 0.732] \\
-XLM-R-base (EN FT)       & 0.6710 $\pm$ 0.0050 & 0.5750 $\pm$ 0.0446 & 0.5299 $\pm$ 0.0049 & 0.6147 $\pm$ 0.0192 \\
+\mbox{XLM-R}-base (EN FT)       & 0.6710 $\pm$ 0.0050 & 0.5750 $\pm$ 0.0446 & 0.5299 $\pm$ 0.0049 & 0.6147 $\pm$ 0.0192 \\
 \bottomrule
 \end{tabular}
 \caption{Macro-F1 on the 870-example balanced test set of each language.
-Seed-dependent rows (QLoRA, XLM-R) give mean $\pm$ sample standard deviation
+Seed-dependent rows (QLoRA, \mbox{XLM-R}) give mean $\pm$ sample standard deviation
 over seeds 42/123/456; deterministic rows give the point estimate with a 95\%
 bootstrap CI (1{,}000 resamples). Best per column in bold.}
 \label{tab:main}
@@ -293,10 +296,10 @@ English, \mbox{+0.0506} Spanish, \mbox{+0.0801} Hindi, and \mbox{+0.0576} Arabic
 The largest gain is on Hindi, a language the model was never trained on and whose
 Romanized, code-mixed surface form is far from the training register. Task
 supervision in one language therefore improves the task behaviour in other
-languages too, rather than only fitting English --- plausibly by drawing on the
+languages too, rather than only fitting English~--- plausibly by drawing on the
 multilingual data already seen in pretraining \citep{qwen2025modelcard}.
 
-\paragraph{On the source language, 3B supervision beats scale.}
+\paragraph{On the source language, 3B supervision matches scale.}
 The QLoRA model reaches 0.7244 on English, above Llama 3.3 70B (0.7137
 [0.683, 0.741]) and Gemini 2.5 Pro (0.6950 [0.665, 0.724]). The margin over Llama
 is small and its interval overlaps ours, so we read this as parity-or-better
@@ -305,10 +308,10 @@ supervision is competitive with a 70B model without it, at a fraction of the cos
 This advantage does not survive the language boundary: averaged over the four
 languages, Gemini leads at 0.7019, Llama at 0.6909, and QLoRA at 0.6278.
 
-\paragraph{Scale helps most where script does not change.}
+\paragraph{Scale helps even where script does not change.}
 The gap to the frontier models is not confined to Arabic. On Romanized Hindi ---
 Latin script, and fragmented by the tokenizer only slightly more than Spanish
-(parity 1.26 against 1.22) --- QLoRA reaches 0.5652 against 0.6484 for Llama and 0.6798 for
+(parity 1.26 against 1.22)~--- QLoRA reaches 0.5652 against 0.6484 for Llama and 0.6798 for
 Gemini, a shortfall of 0.08 to 0.11 macro-F1 that is larger than the entire
 English--Spanish drop. Whatever the frontier models bring to informal, code-mixed
 Latin-script text, it is not something 1{,}839 English examples supply. We return
@@ -317,21 +320,21 @@ does not explain the Hindi failure.
 
 
 \paragraph{The encoder wins exactly one language.}
-QLoRA outperforms fully fine-tuned XLM-R on English (+0.0534), Hindi (+0.0353),
-and Spanish (+0.1009). XLM-R wins Arabic, 0.6147 versus 0.5456 --- a 12.7\%
+QLoRA outperforms fully fine-tuned \mbox{XLM-R} on English (+0.0534), Hindi (+0.0353),
+and Spanish (+0.1009). \mbox{XLM-R} wins Arabic, 0.6147 versus 0.5456~--- a 12.7\%
 relative advantage, under the shared English instruction
 (\S\ref{sec:diagnostic} shows that an Arabic instruction changes this). The English-tuned Qwen2.5 3B decoder thus beats the
-English-tuned XLM-R encoder on three of four languages, and the encoder's
+English-tuned \mbox{XLM-R} encoder on three of four languages, and the encoder's
 advantage appears only in the one non-Latin script. Both models are pretrained on
 multilingual data, so this is not a contrast between multilingual and monolingual
-pretraining; what differs is XLM-R's 100-language mixture, which upsamples
+pretraining; what differs is \mbox{XLM-R}'s 100-language mixture, which upsamples
 lower-resource languages, and its architecture. We read the result as an encoder advantage that is specific to
 Arabic (or to its script) rather than general, though with four languages we cannot
 separate script from language identity.
 
 \paragraph{Efficiency.}
 Table~\ref{tab:efficiency} (Appendix~\ref{app:supp}) gives the deployment picture. The QLoRA model labels a
-tweet in 0.058\,s on one T4 with no per-call cost; XLM-R is ${\approx}21\times$
+tweet in 0.058\,s on one T4 with no per-call cost; \mbox{XLM-R} is ${\approx}21\times$
 faster but gives up 0.101 macro-F1 on Spanish, an accuracy-for-latency trade rather
 than a free win. The Llama (0.702\,s) and Gemini (2.751\,s) figures time each
 successful API request, so they include the network round trip, provider-side
@@ -373,7 +376,7 @@ Model & EN & ES & HI & AR \\
 \midrule
 Qwen2.5 3B         & 44.0 & 44.4 & 69.3 & 76.2 \\
 Qwen2.5 3B QLoRA   & 32.0 & 29.1 & 55.2 & \textbf{69.3} \\
-XLM-R-base         & 24.4 & 14.5 & 37.8 & 38.4 \\
+\mbox{XLM-R}-base         & 24.4 & 14.5 & 37.8 & 38.4 \\
 Llama 3.3 70B      & 27.4 & 23.8 & 33.1 & 39.8 \\
 Gemini 2.5 Pro     & 41.0 & 32.2 & 42.8 & 52.2 \\
 \bottomrule
@@ -414,25 +417,22 @@ depends on the language of the instruction, but only on Hindi does it sit on top
 a genuine loss of class separation.
 
 The frontier and encoder baselines sit in a different regime. Llama 3.3 70B stays
-between 23.8\% and 39.8\% everywhere, and XLM-R between 14.5\% and 38.4\%; neither collapses in the
-way the 3B decoder does, though both have their own miscalibrations (XLM-R's
+between 23.8\% and 39.8\% everywhere, and \mbox{XLM-R} between 14.5\% and 38.4\%; neither collapses in the
+way the 3B decoder does, though both have their own miscalibrations (\mbox{XLM-R}'s
 Spanish, \S\ref{sec:xlmr}). We now examine the two collapsed cells in turn, and
 argue they arise from different causes.
 
 
-\subsection{Fine-tuning never improves neutral}
+\subsection{Fine-tuning barely improves neutral}
 \label{sec:perclass}
 
 Decomposing the transfer gains by class sharpens the same point.
 Table~\ref{tab:delta} (Appendix~\ref{app:supp}) gives the per-class F1 change from base to QLoRA.
 
 English-only supervision improves the positive class by 0.105 on average and the
-negative class by 0.057, but the neutral class by 0.016 --- and on Spanish it is
+negative class by 0.057, but the neutral class by 0.016~--- and on Spanish it is
 flat at $-0.001$. This holds \emph{on English itself}, where the model has 1{,}839
-in-domain labelled examples and neutral still gains only 0.018. In other words,
-English fine-tuning mainly improves how well the model recognises positive and
-negative tweets, and does little for recognising neutral ones, that is, tweets that
-express no sentiment. Since the collapses in \S\ref{sec:collapse} and
+in-domain labelled examples and neutral still gains only 0.018. Since the collapses in \S\ref{sec:collapse} and
 \S\ref{sec:hindi} are precisely over-assignment to neutral, this is consistent with
 their persisting after tuning: the gains available from English supervision are
 concentrated in the classes that are not failing.
@@ -448,14 +448,14 @@ Model (Arabic) & pred.\ \% & Neg. & Neu. & Pos. \\
 \midrule
 Qwen2.5 3B        & 76.2 & 0.317 & 0.928 & 0.293 \\
 Qwen2.5 3B QLoRA  & 69.3 & 0.363 & 0.902 & 0.407 \\
-XLM-R-base        & 38.4 & 0.617 & 0.595 & 0.638 \\
+\mbox{XLM-R}-base        & 38.4 & 0.617 & 0.595 & 0.638 \\
 Gemini 2.5 Pro    & 52.2 & 0.683 & 0.855 & 0.555 \\
 Llama 3.3 70B     & 39.8 & 0.769 & 0.741 & 0.683 \\
 \midrule
 \textit{QLoRA, English} & 32.0 & 0.844 & 0.595 & 0.738 \\
 \bottomrule
 \end{tabular}
-\caption{Arabic neutral-class collapse. ``Neutral pred.\ \%'' is the share of all
+\caption{Arabic neutral-class collapse. ``Neutral pred.~\%'' is the share of all
 870 predictions assigned to neutral; chance is 33.3\% under the balanced test set.
 The final row gives the same model on English for reference. Seed-dependent rows
 are means over three seeds.}
@@ -478,8 +478,8 @@ recall barely moves (0.317 to 0.363). The same checkpoint on English sits at
 32.0\%, so the pathology is specific to Arabic input under an English instruction,
 not a property of the model's calibration in general.
 
-The contrast with scale is sharp. Llama 3.3 70B --- a decoder like Qwen2.5 3B, but
-roughly 23 times larger and trained on different data --- shows no collapse (39.8\% neutral,
+The contrast with scale is sharp. Llama 3.3 70B~--- a decoder like Qwen2.5 3B, but
+roughly 23 times larger and trained on different data~--- shows no collapse (39.8\% neutral,
 recalls 0.769/0.741/0.683) and posts its \emph{highest} single-language score of
 all four on Arabic. Gemini sits between the two, over-predicting neutral at 52.2\%
 but retaining usable polar recall. Whatever drives the 3B model's collapse is
@@ -498,8 +498,8 @@ Fragmentation does not, however, remove the information the classifier needs: th
 label probabilities separate the Arabic classes almost as well as the Spanish ones,
 and a balanced decision rule or an Arabic instruction recovers most of the lost
 macro-F1 (\S\ref{sec:diagnostic}). Half of our annotated Arabic errors (4 of 8)
-show a sentiment-bearing word split across subwords, but most of these items are
-classified correctly once the bias is removed (\S\ref{sec:qualitative}), so the
+show a sentiment-bearing word split across subwords, but three of these four are
+classified correctly under the balanced decision rule (\S\ref{sec:qualitative}), so the
 split describes what these errors look like rather than what causes them. The
 Arabic collapse reflects a strong prior towards neutral when an English instruction
 is applied to Arabic text. Script, fragmentation and Arabic's share of pretraining
@@ -513,7 +513,7 @@ If subword fragmentation were the whole story, Romanized Hindi should behave lik
 Spanish. Both are written in Latin script, and their parity is close: Hindi needs
 26\% more tokens than its English translation and Spanish 22\%, far below Arabic's
 41\%. Hindi does not behave like Spanish. The QLoRA model routes 55.2\% of Hindi inputs to neutral ---
-far from the 29.1\% it achieves on Spanish, and much closer to Arabic --- and
+far from the 29.1\% it achieves on Spanish, and much closer to Arabic~--- and
 Hindi shows the largest F1 gap from English of any language after Arabic
 ($-0.159$).
 
@@ -524,7 +524,7 @@ references (14/46), and ambiguous neutral phrasing (12/46). Romanized Hindi twee
 to an English-tuned model not because the tokenizer shreds them but because the
 orthography is non-standard and the vocabulary is largely unseen: the surface form
 is Latin, so the tokenizer produces plausible-looking English-like subwords that
-carry no reliable sentiment signal --- \emph{bhot} (`very') is tokenized as
+carry no reliable sentiment signal~--- \emph{bhot} (`very') is tokenized as
 \emph{b}\,|\,\emph{hot} (Table~\ref{tab:examples}). Fragmentation is moderate, close to
 Spanish's, and the semantic content is still unavailable.
 
@@ -548,29 +548,29 @@ when the evidence is there but outweighed by a prior towards neutral.
 \subsection{The encoder fails through the opposite mechanism}
 \label{sec:xlmr}
 
-XLM-R's most anomalous cell is Spanish (0.5750 $\pm$ 0.0446). It is not the
-encoder's lowest macro-F1 --- that is Hindi, at 0.5299 --- but it carries the
+\mbox{XLM-R}'s most anomalous cell is Spanish (0.5750 $\pm$ 0.0446). It is not the
+encoder's lowest macro-F1~--- that is Hindi, at 0.5299~--- but it carries the
 study's most extreme single-class dip: neutral-class F1 falls to
 0.3614 $\pm$ 0.1065, some 0.32 below the next-weakest class in the same cell, and
 that 0.1065 is the largest seed standard deviation we measure anywhere. The mechanism is the mirror image of \S\ref{sec:collapse}: where the
-decoder over-predicts neutral on Arabic, XLM-R assigns only 14.5\% $\pm$ 7.9 of
+decoder over-predicts neutral on Arabic, \mbox{XLM-R} assigns only 14.5\% $\pm$ 7.9 of
 Spanish inputs to neutral, well under the 33.3\% chance rate, and pushes the mass
 into the polar classes. Its Spanish negative (0.680) and positive (0.684) F1 are
 unremarkable; only neutral fails. The direction is not uniform across languages:
-XLM-R sits below chance on English (24.4\%) and Spanish (14.5\%) but slightly
+\mbox{XLM-R} sits below chance on English (24.4\%) and Spanish (14.5\%) but slightly
 above it on Hindi (37.8\%) and Arabic (38.4\%). Spanish is nonetheless by far the
-largest departure from chance in either direction that XLM-R produces, so it is
+largest departure from chance in either direction that \mbox{XLM-R} produces, so it is
 the extreme of a tendency visible on the source language rather than an isolated
 glitch.
 
 That a decoder and an encoder both fail by mis-sizing the same class, in opposite
 directions and on different languages, suggests the neutral category is the
 fragile one under transfer rather than either architecture being inherently
-fragile. Neutral is defined negatively --- the absence of polarity --- so it has
+fragile. Neutral is defined negatively~--- the absence of polarity~--- so it has
 no stable lexical signature to transfer, and a model that loses calibration in
 either direction hits this class first. We do not have a mechanistic account of
 why a generative decoder adapts to Spanish neutrals so much better than a masked
-encoder does, and XLM-R's Spanish macro-F1 itself has a seed standard deviation
+encoder does, and \mbox{XLM-R}'s Spanish macro-F1 itself has a seed standard deviation
 of 0.0446,
 so part of the 0.101 gap is optimization instability rather than a stable
 architectural property. We flag it as an open question rather than a result.
@@ -579,7 +579,7 @@ architectural property. We flag it as an open question rather than a result.
 Setting aside the majority baseline, which scores zero on two of the three classes
 by construction, neutral has the lowest per-class F1 in 16 of the 20 remaining
 model--language cells. The four exceptions are exactly the Qwen configurations on
-Hindi and Arabic --- the cells characterized in \S\ref{sec:collapse} and
+Hindi and Arabic~--- the cells characterized in \S\ref{sec:collapse} and
 \S\ref{sec:hindi}. There, neutral stops being the weakest class not because
 neutral becomes easier but because the collapse pushes errors outward into the
 polar classes, inflating neutral recall at their expense; in three of the four it
@@ -624,8 +624,8 @@ distribution and most Hindi errors are not, in line with \S\ref{sec:diagnostic}.
 Three points follow that we think generalize beyond this corpus.
 
 \paragraph{Aggregate metrics hide the distinction that matters.} Hindi and Arabic
-differ by 0.020 macro-F1 for our tuned model --- a difference no reviewer would
-consider meaningful --- yet Table~\ref{tab:neutral} separates them by 14 points of
+differ by 0.020 macro-F1 for our tuned model~--- a difference no reviewer would
+consider meaningful~--- yet Table~\ref{tab:neutral} separates them by 14 points of
 neutral-prediction rate, and the label probabilities show that the model keeps its
 class information on one and not on the other. A study reporting only macro-F1 would have concluded that the model
 degrades similarly on both and reached for a single explanatory mechanism ---
@@ -657,7 +657,7 @@ structured, not uniform, and reading it off aggregate macro-F1 obscures the
 structure. Predicted-class rates on balanced data show that English supervision
 does one specific thing well: it recalibrates a decoder that already
 over-predicted neutral, and that correction transfers to Spanish for free. On
-Hindi and Arabic the same supervision leaves it defaulting to neutral --- 55\% of
+Hindi and Arabic the same supervision leaves it defaulting to neutral~--- 55\% of
 Hindi inputs and 69\% of Arabic ones.
 
 Those two collapses look identical in the metric and are not the same failure.
@@ -667,13 +667,13 @@ an Arabic instruction largely removes. On Romanized Hindi, fragmented only sligh
 more than Spanish, class separation itself is weaker, neither intervention repairs
 it, and the errors are more consistent with code-mixed register. Fragmentation
 explains neither collapse. Neither
-the encoder's multilingual pretraining nor task supervision addresses both: XLM-R
+the encoder's multilingual pretraining nor task supervision addresses both: \mbox{XLM-R}
 wins only Arabic and fails Spanish through the inverse pathology, while the 70B
 decoder avoids both collapses without any task supervision at all.
 
 Practically, a QLoRA-adapted SLM is a sound choice for Latin-script targets in a
-familiar register and a poor one otherwise, and the neutral-prediction rate is a
-cheap pre-deployment check --- it requires only unlabelled inputs and a balanced
+familiar register; elsewhere, the neutral-prediction rate is a
+cheap pre-deployment check~--- it requires only unlabelled inputs and a balanced
 reference, and it flags the collapse before any labelled evaluation exists. The
 question our design cannot settle is where the Arabic prior towards neutral comes
 from: script, fragmentation, or the pretraining scarcity that co-occurs with them.
@@ -690,15 +690,14 @@ pretraining representation are confounded across these four languages, we cannot
 say which of them produces the Arabic prior towards neutral. Our parity estimates rest on machine
 translation, which on the human-translated subset raised parity by 0.03 to 0.10;
 and because Romanized Hindi tweets are partly English, those segments pass through
-translation almost unchanged, which pushes Hindi parity towards 1 --- in the
+translation almost unchanged, which pushes Hindi parity towards 1~--- in the
 direction that favours our argument, so the Hindi--Spanish comparison should be read
-as approximate; with only four languages, we do not attempt to quantify
-this relationship, and any such correlation would not be statistically meaningful
-at this scale. Our test sets, while exactly balanced, are limited to 870 examples
+as approximate. With only four languages we do not correlate fragmentation with
+macro-F1; such a correlation would not be statistically meaningful. Our test sets, while exactly balanced, are limited to 870 examples
 per language, so the class-level rates in \S\ref{sec:analysis} should be read with
 that scale in mind. Compute
 constraints limited us to three seeds, so our variance estimates are coarse ---
-relevant for XLM-R's Spanish result, where the seed standard deviation is large
+relevant for \mbox{XLM-R}'s Spanish result, where the seed standard deviation is large
 enough that we treat part of that gap as optimization instability. The two
 frontier baselines were each run once through their APIs and are subject to
 sampling non-determinism we did not measure, and Gemini's undisclosed parameter
@@ -719,10 +718,8 @@ written by us with the label words kept in English, and only the Qwen models wer
 re-run with it; other wordings may behave differently, and Llama and Gemini might
 gain from it too. The balanced decision rule assumes that the class balance is
 known, which holds for our test sets but not in general deployment. Lastly, the
-remedies we discuss --- vocabulary adaptation,
-transliteration, and in-language or code-mixed instruction data --- are suggestions
-motivated by the analysis; apart from the target-language instruction, we do not
-test any of them.
+remedy we suggest for Romanized Hindi, in-language or code-mixed instruction data,
+is motivated by the analysis but not tested.
 
 \section*{Ethical Considerations}
 
@@ -738,7 +735,7 @@ de-identified.
 
 The failure mode we document has a distributional cost that we want to state
 plainly. A model that routes 69\% of Arabic inputs to the neutral class does not
-fail uniformly --- it systematically erases expressed sentiment, and it does so
+fail uniformly~--- it systematically erases expressed sentiment, and it does so
 for the language in our study whose script the tokenizer handles worst. Deploying
 an English-tuned SLM as though its English-language accuracy carried over would
 therefore under-report both positive and negative opinion for exactly the users
@@ -784,8 +781,8 @@ HI & ldko me to sb chalta h yr \ldots\ u mst hv cntrl & With boys anything goes,
 HI & bhai apna time barabaad mat karo kisi ko koi rply nai milne wala & Bro, don't waste your time, nobody's going to get a reply & neg$\rightarrow$neu & code-switching & \emph{barabaad} `wasted': bar\,|\,aba\,|\,ad; \emph{rply}: r\,|\,ply \\
 HI & Are kaisi hai Tbyat theek nai hai yr & Hey, how's your health? Not well, man? & neg$\rightarrow$neu & code-switching & \emph{Tbyat} `health': T\,|\,by\,|\,at; \emph{theek} `fine': the\,|\,ek \\
 \midrule
-ES & Si tu día esta amargo ``pues dale una movida'' aveces el azúcar esta en el fondo. & If your day is bitter, ``give it a stir'': sometimes the sugar is at the bottom. & neu$\rightarrow$pos & cultural idiom & --- \\
-ES & Me gusta estar sola y me molesta la gente que habla mucho \ldots & I like being alone, and people who talk a lot annoy me \ldots & neu$\rightarrow$neg & ambiguous neutral & --- \\
+ES & Si tu día esta amargo ``pues dale una movida'' aveces el azúcar esta en el fondo. & If your day is bitter, ``give it a stir'': sometimes the sugar is at the bottom. & neu$\rightarrow$pos & cultural idiom &~--- \\
+ES & Me gusta estar sola y me molesta la gente que habla mucho \ldots & I like being alone, and people who talk a lot annoy me \ldots & neu$\rightarrow$neg & ambiguous neutral &~--- \\
 \bottomrule
 \end{tabular}
 \caption{Representative QLoRA misclassifications from the annotated sample
@@ -807,12 +804,12 @@ separated by a bar (Arabic read right to left).}
 \toprule
 Configuration & Type & Params & Training \\
 \midrule
-Majority baseline    & Trivial & ---  & none \\
+Majority baseline    & Trivial &~---  & none \\
 Qwen2.5 3B           & Decoder & 3B   & none \\
 Qwen2.5 3B QLoRA     & Decoder & 3B   & EN QLoRA \\
 Llama 3.3 70B        & Decoder & 70B  & none \\
 Gemini 2.5 Pro       & Decoder & n/a  & none \\
-XLM-R-base           & Encoder & 278M & EN full FT \\
+\mbox{XLM-R}-base           & Encoder & 278M & EN full FT \\
 \bottomrule
 \end{tabular}
 \caption{Evaluated configurations. All generative models share one prompt; all
@@ -828,7 +825,7 @@ either way.}
 \includegraphics[width=\columnwidth]{figures/f1_grouped_bar.pdf}
 \caption{Macro-F1 across the five model configurations and four languages; the
 majority baseline (0.1667 everywhere) is omitted for legibility. Error bars are
-sample standard deviations over three seeds for QLoRA and XLM-R; the deterministic single-run
+sample standard deviations over three seeds for QLoRA and \mbox{XLM-R}; the deterministic single-run
 configurations have none, and their sampling uncertainty is given as bootstrap
 CIs in Table~\ref{tab:main} instead. The two Qwen bars sit level with the frontier
 models on English and Spanish and fall well below them on Hindi and Arabic; the
@@ -844,14 +841,14 @@ gap that English tuning closes is roughly constant across languages
 \toprule
 Model & s/sample & Avg.\ F1 & Cost/1K \\
 \midrule
-XLM-R-base        & 0.0027 & 0.5976 & \$0 \\
+\mbox{XLM-R}-base        & 0.0027 & 0.5976 & \$0 \\
 Qwen2.5 3B QLoRA  & 0.058  & 0.6278 & \$0 \\
 Llama 3.3 70B     & 0.702  & 0.6909 & \$0.03--0.06 \\
 Gemini 2.5 Pro    & 2.751  & 0.7019 & variable \\
 \bottomrule
 \end{tabular}
 \caption{Seconds per sample (mean over the four languages) against mean macro-F1.
-Self-hosted rows: batch time on one T4 divided by batch size (XLM-R forward pass at
+Self-hosted rows: batch time on one T4 divided by batch size (\mbox{XLM-R} forward pass at
 batch size 32; QLoRA generation at batch size 8). API rows (Llama, Gemini):
 wall-clock time of each successful request, including network latency, so the two
 groups are not directly comparable. Gemini
@@ -904,7 +901,7 @@ Text: \{text\}
 Table~\ref{tab:seeds} gives the selected checkpoint for each seed. QLoRA
 validation F1 was not logged during training, so the English column reports
 seed-level test macro-F1 from the evaluation run rather than a validation score;
-XLM-R reports validation F1 as logged. Checkpoint selection used validation loss
+\mbox{XLM-R} reports validation F1 as logged. Checkpoint selection used validation loss
 in both cases.
 
 \begin{table}[H]
@@ -981,7 +978,7 @@ Model & & Neg. & Neu. & Pos. \\
 \end{tabular}
 \caption{Per-class F1 for the 20 non-trivial model--language cells; leading
 zeros are omitted. The majority baseline is excluded because it scores zero on two
-of the three classes by construction. QLoRA and XLM-R are means over seeds
+of the three classes by construction. QLoRA and \mbox{XLM-R} are means over seeds
 42/123/456; the rest are single runs. \textbf{Bold} marks the weakest class in each
 row: it is neutral in 16 of the 20 rows, the exceptions being the four Qwen rows on
 Hindi and Arabic (\S\ref{sec:collapse}, \S\ref{sec:hindi}). Macro-F1 for every cell is in
@@ -1067,7 +1064,7 @@ batao.} The exact prompts are in the released notebook.
 \cmidrule(lr){2-3}\cmidrule(lr){4-6}
 Lang. & F1 & neu.\% & neg & neu & pos & F1 & F1 / neu.\% \\
 \midrule
-EN & .724 & 32.0 & .929 & .797 & .948 & .738 & --- \\
+EN & .724 & 32.0 & .929 & .797 & .948 & .738 &~--- \\
 ES & .676 & 29.1 & .899 & .774 & .901 & .687 & .659 / 20.7 \\
 HI & .565 & 55.2 & .797 & .718 & .810 & .599 & .577 / 34.0 \\
 AR & .546 & 69.3 & .885 & .778 & .871 & .669 & .665 / 26.1 \\
@@ -1104,7 +1101,7 @@ but hashtags, mentions or links, are empty after cleaning, and are excluded
 \cmidrule(lr){3-4}\cmidrule(lr){5-6}
 Lang. & word & pooled [95\% CI] & words & human & MT \\
 \midrule
-English & 1.633 & 1 (ref.) & 1 & --- & --- \\
+English & 1.633 & 1 (ref.) & 1 &~--- &~--- \\
 Spanish & 1.582 & 1.22 [1.21, 1.24] & 0.92 & 1.11 & 1.21 \\
 Hindi   & 1.703 & 1.26 [1.24, 1.28] & 0.98 & 1.33 & 1.36 \\
 Arabic  & 2.592 & 1.41 [1.39, 1.43] & 0.71 & 1.24 & 1.30 \\
@@ -1125,11 +1122,11 @@ full machine-translated set does not.}
 
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=0.63\textwidth]{figures/confusion_matrices_grid.pdf}
+\includegraphics[width=\textwidth]{figures/confusion_matrices_grid.pdf}
 \caption{Confusion matrices for all 24 model--language combinations, 870 test
 examples each; rows are configurations, columns are languages. Cells are counts,
-and for the two seed-dependent models (QLoRA, XLM-R) they are means over seeds
-42/123/456 --- hence the decimals --- so that every rate quoted in
+and for the two seed-dependent models (QLoRA, \mbox{XLM-R}) they are means over seeds
+42/123/456~--- hence the decimals~--- so that every rate quoted in
 Tables~\ref{tab:neutral} and \ref{tab:collapse} can be read directly off this
 figure.}
 \label{fig:confusion}
@@ -1139,13 +1136,13 @@ figure.}
 rates in Tables~\ref{tab:neutral} and \ref{tab:collapse}; three of its cells carry the
 argument of \S\ref{sec:analysis}. In the QLoRA row of the Arabic column, 59.5\% of
 true negatives and 58.2\% of true positives are routed to neutral while 90.2\% of
-true neutrals are retained --- a near-vertical band rather than a diagonal. The
+true neutrals are retained~--- a near-vertical band rather than a diagonal. The
 Hindi column of that row shows the same shape more mildly, with 49.7\% of negatives
-and 39.9\% of positives lost to neutral (\S\ref{sec:hindi}). The XLM-R row of the
+and 39.9\% of positives lost to neutral (\S\ref{sec:hindi}). The \mbox{XLM-R} row of the
 Spanish column inverts it: only 26.8\% of true neutrals are recovered, with 43.2\%
 pushed to positive and 30.0\% to negative, so the neutral \emph{row} empties into the
 polar columns instead. Llama 3.3 70B on Arabic is diagonal-dominant throughout
-(76.9\%, 74.1\%, 68.3\%) --- what the absence of a collapse looks like at this scale.
+(76.9\%, 74.1\%, 68.3\%)~--- what the absence of a collapse looks like at this scale.
 
 
 

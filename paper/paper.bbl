@@ -5,8 +5,8 @@
   Tsvetkov}]{ahia2023cost}
 Orevaoghene Ahia, Sachin Kumar, Hila Gonen, Jungo Kasai, David Mortensen, Noah
   Smith, and Yulia Tsvetkov. 2023.
-\newblock Do all languages cost the same? tokenization in the era of commercial
-  language models.
+\newblock Do all languages cost the same? {T}okenization in the era of
+  commercial language models.
 \newblock In \emph{Proceedings of the 2023 Conference on Empirical Methods in
   Natural Language Processing}, pages 9904--9923, Singapore. Association for
   Computational Linguistics.
@@ -270,7 +270,7 @@ Sara Rosenthal, Noura Farra, and Preslav Nakov. 2017.
   Gurevych}]{rust2021good}
 Phillip Rust, Jonas Pfeiffer, Ivan Vuli{\'c}, Sebastian Ruder, and Iryna
   Gurevych. 2021.
-\newblock How good is your tokenizer? on the monolingual performance of
+\newblock How good is your tokenizer? {O}n the monolingual performance of
   multilingual language models.
 \newblock In \emph{Proceedings of the 59th Annual Meeting of the Association
   for Computational Linguistics and the 11th International Joint Conference on

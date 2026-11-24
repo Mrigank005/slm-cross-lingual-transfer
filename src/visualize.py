@@ -242,77 +242,80 @@ def generate_results_table(
 #  Grouped Bar Chart                                                            #
 # --------------------------------------------------------------------------- #
 
+SHORT_DISPLAY = {
+    "majority_baseline": "Majority",
+    "qwen25_base": "Qwen2.5 3B",
+    "qwen25_finetuned": "Qwen2.5 3B QLoRA",
+    "llama70b": "Llama 3.3 70B",
+    "gemini25pro": "Gemini 2.5 Pro",
+    "xlm_roberta_base": "XLM-R (EN FT)",
+}
+
+# Paper figures are drawn at their printed size (ACL column = 3.03 in, text width = 6.3 in)
+# in a Times-like serif, so that text in the figure matches the caption size.
+PAPER_RC = {
+    "font.family": "serif",
+    "font.serif": ["Times New Roman", "Times", "Nimbus Roman", "DejaVu Serif"],
+    "pdf.fonttype": 42,
+    "axes.linewidth": 0.6,
+    "xtick.major.width": 0.6,
+    "ytick.major.width": 0.6,
+}
+
+
 def plot_f1_grouped_bar(
     results_dir: str = "results/eval_scores/aggregated/",
     save_path: str = "results/figures/f1_grouped_bar.pdf",
-    figsize: tuple[int, int] = (12, 7),
+    figsize: tuple[float, float] = (3.3, 2.35),
     dpi: int = 300,
 ) -> None:
-    """Grouped bar chart: x=language, bars=models, y=F1 Macro with error bars.
+    """Grouped bar chart: x=language, bars=models, y=macro-F1 with seed-SD error bars.
 
-    Args:
-        results_dir: Directory with eval_scores JSONs.
-        save_path: Output path.
+    Drawn at ACL single-column size; include with width=\columnwidth.
     """
     data = _load_results(results_dir)
-
-    # Exclude majority baseline for cleaner chart (or include, user preference)
     plot_models = [m for m in MODELS if m != "majority_baseline"]
-
     x = np.arange(len(LANGUAGES))
     width = 0.16
     colors = ["#2196F3", "#4CAF50", "#FF9800", "#F44336", "#9C27B0"]
 
-    fig, ax = plt.subplots(figsize=figsize)
-
-    for i, model in enumerate(plot_models):
-        f1_vals = []
-        std_errors = []
-
-        for lang in LANGUAGES:
-            metrics = data.get(model, {}).get(lang, {})
-            if "f1_macro_mean" in metrics:
-                f1 = metrics.get("f1_macro_mean", 0)
-                # Sample SD (ddof=1) over the per-seed scores, matching the paper's
-                # tables; the stored f1_macro_std is the population SD (ddof=0).
-                per_seed = metrics.get("f1_macro_per_seed") or []
-                if isinstance(per_seed, dict):  # stored as {"42": f1, "123": f1, ...}
-                    per_seed = list(per_seed.values())
-                if len(per_seed) > 1 and len(set(per_seed)) > 1:
-                    std = float(np.std(per_seed, ddof=1))
+    with plt.rc_context(PAPER_RC):
+        fig, ax = plt.subplots(figsize=figsize)
+        for i, model in enumerate(plot_models):
+            f1_vals, std_errors = [], []
+            for lang in LANGUAGES:
+                metrics = data.get(model, {}).get(lang, {})
+                if "f1_macro_mean" in metrics:
+                    f1 = metrics.get("f1_macro_mean", 0)
+                    per_seed = metrics.get("f1_macro_per_seed") or []
+                    if isinstance(per_seed, dict):
+                        per_seed = list(per_seed.values())
+                    std = float(np.std(per_seed, ddof=1)) if len(set(per_seed)) > 1 else 0.0
                 else:
-                    std = 0.0
-            else:
-                f1 = metrics.get("f1_macro", 0)
-                std = 0
-            f1_vals.append(f1)
-            std_errors.append(std)
+                    f1, std = metrics.get("f1_macro", 0), 0.0
+                f1_vals.append(f1)
+                std_errors.append(std)
+            ax.bar(x + i * width, f1_vals, width, label=SHORT_DISPLAY.get(model, model),
+                   color=colors[i], yerr=std_errors, capsize=1.5,
+                   error_kw={"linewidth": 0.6, "capthick": 0.6})
 
-        bars = ax.bar(
-            x + i * width,
-            f1_vals,
-            width,
-            label=MODEL_DISPLAY.get(model, model),
-            color=colors[i],
-            yerr=std_errors,
-            capsize=3,
-            error_kw={"linewidth": 1},
-        )
-
-    ax.set_ylabel("F1 Macro", fontsize=13)
-    ax.set_xlabel("Language", fontsize=13)
-    # No in-figure title: in ACL/EMNLP format the caption carries the title, and a
-    # duplicate heading inside the artwork is non-standard.
-    ax.set_xticks(x + width * (len(plot_models) - 1) / 2)
-    ax.set_xticklabels([l.capitalize() for l in LANGUAGES], fontsize=12)
-    ax.legend(fontsize=10, loc="lower left")
-    ax.grid(axis="y", alpha=0.3)
-    ax.set_ylim(0, 1.05)
-
-    plt.tight_layout()
-    Path(save_path).parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(save_path, dpi=dpi, bbox_inches="tight")
-    plt.close(fig)
+        ax.set_ylabel("Macro-F1", fontsize=8)
+        ax.set_xticks(x + width * (len(plot_models) - 1) / 2)
+        ax.set_xticklabels([l.capitalize() for l in LANGUAGES], fontsize=8)
+        ax.tick_params(axis="y", labelsize=7, length=2)
+        ax.tick_params(axis="x", length=0)
+        ax.set_ylim(0, 0.85)
+        ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8])
+        ax.grid(axis="y", alpha=0.3, linewidth=0.5)
+        ax.set_axisbelow(True)
+        for side in ("top", "right"):
+            ax.spines[side].set_visible(False)
+        ax.legend(fontsize=6.5, ncol=3, loc="lower center", bbox_to_anchor=(0.5, 1.0),
+                  frameon=False, handlelength=1.0, columnspacing=0.8, handletextpad=0.4)
+        fig.tight_layout(pad=0.2)
+        Path(save_path).parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(save_path, dpi=dpi, bbox_inches="tight", pad_inches=0.02)
+        plt.close(fig)
     logger.info(f"Grouped bar chart saved to {save_path}")
 
 
@@ -324,67 +327,52 @@ def plot_confusion_matrices_grid(
     results_dir: str = "results/eval_scores/aggregated/",
     cache_dir: str = "results/api_cache/",
     save_path: str = "results/figures/confusion_matrices_grid.pdf",
-    figsize: tuple[int, int] = (20, 25),
+    figsize: tuple[float, float] = (6.3, 8.0),
     dpi: int = 300,
     seeds: tuple[int, ...] = (42, 123, 456),
 ) -> None:
-    """5×4 grid of confusion matrices (rows=models, cols=languages).
+    """6x4 grid of confusion matrices (rows=models, cols=languages), drawn at ACL text width.
 
-    For the seed-dependent models (Qwen QLoRA, XLM-R) the matrix is the **mean
-    over all seeds**, matching how every other number in the paper is reported.
-    Plotting a single seed here while reporting seed means elsewhere made the
-    figure disagree with the tables by up to 11 points of predicted-class rate.
-
-    Args:
-        results_dir: Directory with eval_scores.
-        cache_dir: Directory with API cache.
-        save_path: Output path.
-        seeds: Seeds to average over for seed-dependent models.
+    For the seed-dependent models (Qwen QLoRA, XLM-R) each matrix is the mean over all
+    seeds, matching how every other number in the paper is reported.
     """
+    from sklearn.metrics import confusion_matrix as cm_func
     from src.evaluate import load_predictions_for_model
 
-    fig, axes = plt.subplots(len(MODELS), len(LANGUAGES), figsize=figsize)
-    label_names = ["negative", "neutral", "positive"]
+    short = ["neg", "neu", "pos"]
     seeded = {"qwen25_finetuned", "xlm_roberta_base"}
-
-    for i, model in enumerate(MODELS):
-        for j, lang in enumerate(LANGUAGES):
-            ax = axes[i, j]
-            try:
-                from sklearn.metrics import confusion_matrix as cm_func
+    with plt.rc_context(PAPER_RC):
+        fig, axes = plt.subplots(len(MODELS), len(LANGUAGES), figsize=figsize)
+        for i, model in enumerate(MODELS):
+            for j, lang in enumerate(LANGUAGES):
+                ax = axes[i, j]
                 seed_args = seeds if model in seeded else (None,)
                 mats = []
                 for s in seed_args:
-                    y_true, y_pred = load_predictions_for_model(
-                        model, lang, results_dir, cache_dir, seed=s,
-                    )
+                    y_true, y_pred = load_predictions_for_model(model, lang, results_dir, cache_dir, seed=s)
                     mats.append(cm_func(y_true, y_pred, labels=[0, 1, 2]))
                 cm = np.mean(mats, axis=0)
-                # Integer counts for single runs; one decimal for seed means, so
-                # that rows still sum to the true 290 per class.
                 fmt = "d" if len(mats) == 1 else ".1f"
                 if len(mats) == 1:
                     cm = cm.astype(int)
-                sns.heatmap(cm, annot=True, fmt=fmt, cmap="Blues",
-                           xticklabels=label_names, yticklabels=label_names,
-                           ax=ax, cbar=False, annot_kws={"fontsize": 9})
-            except FileNotFoundError:
-                ax.text(0.5, 0.5, "N/A", ha="center", va="center", fontsize=14)
-                ax.set_xticks([])
-                ax.set_yticks([])
-
-            if i == 0:
-                ax.set_title(lang.capitalize(), fontsize=13, fontweight="bold")
-            if j == 0:
-                ax.set_ylabel(MODEL_DISPLAY.get(model, model), fontsize=10,
-                             fontweight="bold", rotation=90, labelpad=20)
-
-    # No in-figure title: the LaTeX caption carries it (ACL format).
-    plt.tight_layout()
-
-    Path(save_path).parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(save_path, dpi=dpi, bbox_inches="tight")
-    plt.close(fig)
+                sns.heatmap(cm, annot=True, fmt=fmt, cmap="Blues", vmin=0, vmax=290,
+                            xticklabels=short if i == len(MODELS) - 1 else False,
+                            yticklabels=short if j == 0 else False,
+                            ax=ax, cbar=False, square=True, linewidths=0.4, linecolor="white",
+                            annot_kws={"fontsize": 7})
+                ax.tick_params(length=0, labelsize=6.5, pad=1.5)
+                if j == 0:
+                    ax.set_yticklabels(short, rotation=0)
+                if i == 0:
+                    ax.set_title(lang.capitalize(), fontsize=9, fontweight="bold", pad=4)
+                if j == 0:
+                    ax.set_ylabel(SHORT_DISPLAY.get(model, model), fontsize=8, fontweight="bold", labelpad=4)
+                if i == len(MODELS) - 1:
+                    ax.set_xlabel("predicted", fontsize=7, labelpad=2)
+        fig.tight_layout(pad=0.3, h_pad=0.6, w_pad=0.4)
+        Path(save_path).parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(save_path, dpi=dpi, bbox_inches="tight", pad_inches=0.02)
+        plt.close(fig)
     logger.info(f"Confusion matrix grid saved to {save_path}")
 
 
